@@ -2,7 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BillFolio.ViewModels"
+			 xmlns:local="clr-namespace:BillFolio.Models"
+			 xmlns:conv="clr-namespace:BillFolio.Converters" 
+
              x:Class="BillFolio.MainPage">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<conv:EnumToStringConverter x:Key="EnumToStringConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
 
 	<ContentPage.BindingContext>
 		<vm:MainPageViewModel />
@@ -10,11 +19,24 @@
 
 	<ScrollView>
 		<VerticalStackLayout Padding="30">
-			<Label Text="BillFolio - Personal Bill Tracker" FontSize="32" HorizontalOptions="Center" />
+			<Label Text="BillFolio" FontSize="32" HorizontalOptions="Center" />
+			<Label Text="Personal Bill Tracker" FontSize="28" HorizontalOptions="Center" />
 
 			<Entry x:Name="BillNameEntry" Placeholder="Bill Name" />
 			<Entry x:Name="BillAmountEntry" Placeholder="Amount" Keyboard="Numeric" />
 			<Entry x:Name="DueDateEntry" Placeholder="Due Date (MM/dd/yyyy)" />
+
+			<Picker x:Name="FrequencyPicker" Title="Select Frequency" ItemsSource="{Binding Frequencies}" SelectedItem="{Binding SelectedFrequency}">
+				<Picker.ItemDisplayBinding>
+					<Binding Path="." Converter="{StaticResource EnumToStringConverter}"/>
+				</Picker.ItemDisplayBinding>
+			</Picker>
+
+			<Picker x:Name="TypePicker" Title="Select Type" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}">
+				<Picker.ItemDisplayBinding>
+					<Binding Path="." Converter="{StaticResource EnumToStringConverter}"/>
+				</Picker.ItemDisplayBinding>
+			</Picker>
 
 			<Button Text="Add Bill" Clicked="OnAddBillClicked" />
 
@@ -26,6 +48,8 @@
 							<Label Text="{Binding Name}" />
 							<Label Text="{Binding Amount, StringFormat='Amount: {0:C}'}" />
 							<Label Text="{Binding DueDate, StringFormat='Due: {0:MM/dd/yyyy}'}" />
+							<Label Text="{Binding Frequency, Converter={StaticResource EnumToStringConverter}}"/>
+							<Label Text="{Binding Type, Converter={StaticResource EnumToStringConverter}}"/>
 						</StackLayout>
 					</DataTemplate>
 				</CollectionView.ItemTemplate>
