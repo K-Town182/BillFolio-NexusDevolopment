@@ -74,7 +74,8 @@
 									CommandParameter="{Binding .}"
 									WidthRequest="80"
 									HeightRequest="40"
-									CornerRadius="5" />  
+									CornerRadius="5" 
+									Clicked="OnEditBillClicked"/>  
 
                                 <Button 
 									Text="Delete"

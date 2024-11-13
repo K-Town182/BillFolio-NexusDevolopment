@@ -1,4 +1,5 @@
 ﻿
+using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace BillFolio.ViewModels
 		// Properties for enum Values
 		public ObservableCollection<BillFrequency> Frequencies { get; set; } //Add Frequencies property
 		public ObservableCollection<BillType> Types { get; set; } //Add Type property
+
 
 		//Properties for selected values
 		private BillFrequency _selectedFrequency;
@@ -43,12 +45,17 @@ namespace BillFolio.ViewModels
 			}
 		}
 
+		// Command for deleting a bill
+		public ICommand DeleteCommand { get; private set; }
+
 		public MainPageViewModel()
 		{
-			// Initialize with any default data if needed
+			
 			Frequencies = new ObservableCollection<BillFrequency>((BillFrequency[])Enum.GetValues(typeof(BillFrequency)));
 			Types = new ObservableCollection<BillType>((BillType[])Enum.GetValues(typeof(BillType)));
 
+			//Initialize the DeleteCommand
+			DeleteCommand = new Command<Bill>(DeleteBill);
 		}
 
 		public void AddBill(Bill bill)
@@ -57,10 +64,24 @@ namespace BillFolio.ViewModels
 			OnPropertyChanged(nameof(Bills)); // Notify the UI of the property change
 		}
 
+		public void DeleteBill(Bill bill)
+		{
+			if (Bills.Contains(bill))
+			{
+				Bills.Remove(bill);
+				OnPropertyChanged(nameof(Bills)); // Notify the UI of the property change
+			}
+		}
+
+		public void EditBill(Bill bill)
+		{
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 		protected void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
+	
 	}
 }

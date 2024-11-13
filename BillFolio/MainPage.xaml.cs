@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls;
 using BillFolio.Models;
 using BillFolio.ViewModels;
+//using Javax.Security.Auth;
 
 namespace BillFolio
 {
@@ -35,7 +36,7 @@ namespace BillFolio
 				Frequency = (BillFrequency)FrequencyPicker.SelectedItem, //Get selected frequency
 				Type = (BillType)TypePicker.SelectedItem, // Get selected type
 
-		};
+			};
 
 			// Get the ViewModel from the BindingContext and add the bill
 			var viewModel = (MainPageViewModel)BindingContext;
@@ -49,5 +50,40 @@ namespace BillFolio
 			TypePicker.SelectedItem = null;
 
 		}
+
+		private void OnEditBillClicked(object sender, EventArgs e)
+		{
+			if (sender is Button button && button.CommandParameter is Bill bill)
+			{
+				// populate entry fields with the selected bill details for editing
+				BillNameEntry.Text = bill.Name;
+				BillAmountEntry.Text = bill.Amount.ToString();
+				DueDateEntry.Text = bill.DueDate.ToString("MM/dd/yyyy");
+				FrequencyPicker.SelectedItem = bill.Frequency;
+				TypePicker.SelectedItem = bill.Type;
+
+				// remove bill option in edit screen
+				var viewModel = (MainPageViewModel)BindingContext;
+				viewModel.DeleteBill(bill); //remove from list until saved
+			}
+		}
+		private void OnDeleteBillClicked(object sender, EventArgs e)
+		{
+			if (sender is Button button && button.CommandParameter is Bill bill)
+			{
+				var viewModel = (MainPageViewModel)BindingContext;
+				viewModel.DeleteBill(bill); //Calls the DeleteBill method in ViewModel
+			}
+		}
+		private void ClearEntryFields()
+		{
+			BillNameEntry.Text = string.Empty;
+			BillAmountEntry.Text = string.Empty;
+			DueDateEntry.Text = string.Empty;
+			FrequencyPicker.SelectedItem = null;
+			TypePicker.SelectedItem = null;
+		}
 	}
 }
+		
+		
