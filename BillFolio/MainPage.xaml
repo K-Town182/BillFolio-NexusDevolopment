@@ -43,16 +43,54 @@
 			<Label Text="Your Bills:" FontSize="24" />
 			<CollectionView ItemsSource="{Binding Bills}">
 				<CollectionView.ItemTemplate>
-					<DataTemplate>
-						<StackLayout>
-							<Label Text="{Binding Name}" />
-							<Label Text="{Binding Amount, StringFormat='Amount: {0:C}'}" />
-							<Label Text="{Binding DueDate, StringFormat='Due: {0:MM/dd/yyyy}'}" />
-							<Label Text="{Binding Frequency, Converter={StaticResource EnumToStringConverter}}"/>
-							<Label Text="{Binding Type, Converter={StaticResource EnumToStringConverter}}"/>
-						</StackLayout>
-					</DataTemplate>
-				</CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- StackLayout containing labels for the main data -->
+                            <Frame BorderColor="Black" 
+                                   Padding="10"
+                                   CornerRadius="5"
+                                   Margin="10,10,10,10">
+                                <StackLayout VerticalOptions="StartAndExpand">
+                                <Label Text="{Binding Name}"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding Amount, StringFormat='Amount: {0:C}'}" />
+                                <Label Text="{Binding DueDate, StringFormat='Due: {0:MM/dd/yyyy}'}" />
+                                <Label Text="{Binding Frequency, Converter={StaticResource EnumToStringConverter}}" />
+                                <Label Text="{Binding Type, Converter={StaticResource EnumToStringConverter}}" />
+                                </StackLayout>
+                            </Frame>
+                            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Center" Padding="40" Spacing="10">
+                                
+                                    <Button 
+									Text="Edit"
+                                    BorderColor="Black"
+									BackgroundColor="Yellow"
+									TextColor="Black"
+									Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditCommand}" 
+									CommandParameter="{Binding .}"
+									WidthRequest="80"
+									HeightRequest="40"
+									CornerRadius="5" />  
+
+                                <Button 
+									Text="Delete"
+                                    BorderColor="Black"
+									BackgroundColor="Red"
+									TextColor="Black"
+									Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteCommand}" 
+									CommandParameter="{Binding .}"
+									WidthRequest="80"
+									HeightRequest="40"
+									CornerRadius="5" />
+                                
+                            </HorizontalStackLayout>    
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 			</CollectionView>
 		</VerticalStackLayout>
 	</ScrollView>

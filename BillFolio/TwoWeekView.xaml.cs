@@ -91,7 +91,7 @@ namespace BillFolio
             {
                 dateBorders[date].BackgroundColor = e.Value ? Colors.LightGreen : Colors.LightGray;
             }
-            
+           
             
             /*
             // Assuming `Bills` is a collection of Bill objects in your class  
@@ -115,7 +115,7 @@ namespace BillFolio
                     dateBorders[date].BackgroundColor = Colors.Gray;  // No bills on this date, neutral color
                 }
             }
-           */
+            */
         }
     }
 }
