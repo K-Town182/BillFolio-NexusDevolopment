@@ -7,6 +7,7 @@ namespace BillFolio
 		public static MauiApp CreateMauiApp()
 		{
 			var builder = MauiApp.CreateBuilder();
+			
 			builder
 				.UseMauiApp<App>()
 				.ConfigureFonts(fonts =>
@@ -15,11 +16,10 @@ namespace BillFolio
 					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				});
 
-#if DEBUG
-			builder.Logging.AddDebug();
-#endif
+            // Initialize the database
+            DatabaseHelper.Initialize();
 
-			return builder.Build();
+            return builder.Build();
 		}
 	}
 }
