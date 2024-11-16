@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Maui.Controls;
 using BillFolio.Models;
+using System.Collections.ObjectModel;
 using BillFolio.ViewModels;
 //using Javax.Security.Auth;
 
@@ -83,7 +84,14 @@ namespace BillFolio
 			FrequencyPicker.SelectedItem = null;
 			TypePicker.SelectedItem = null;
 		}
-	}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var bills = DatabaseHelper.GetAllBills();
+            ((MainPageViewModel)BindingContext).Bills = new ObservableCollection<Bill>(bills);
+        }
+
+    }
 }
 		
 		

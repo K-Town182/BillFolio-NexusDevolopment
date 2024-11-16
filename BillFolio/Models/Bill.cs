@@ -25,9 +25,7 @@ namespace BillFolio.Models
 		public DateTime DueDate { get; set; }     // Due date of the bill
 		public BillFrequency Frequency { get; set; } // Fequency of the bill
 		public BillType Type { get; set; }          // Type of bill (e.g., Utility, Subscription, etc.)
-
-		public bool IsPaid { get; set; }			// To check if the bill is paid or not. ( Added 11/11 Johnathon)
-
-	}
+		public bool IsPaid { get; set; }            // To check if the bill is paid or not. ( Added 11/11 Johnathon)
+    }
 }
 

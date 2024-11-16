@@ -91,8 +91,8 @@ namespace BillFolio
             {
                 dateBorders[date].BackgroundColor = e.Value ? Colors.LightGreen : Colors.LightGray;
             }
-           
-            
+
+
             /*
             // Assuming `Bills` is a collection of Bill objects in your class  
             var billsForDate = Bills.Where(Bill => Bill.DueDate.Date == date.Date).ToList();  // Find bills that are due on the selected date
