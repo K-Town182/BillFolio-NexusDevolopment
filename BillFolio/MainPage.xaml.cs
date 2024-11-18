@@ -23,7 +23,7 @@ namespace BillFolio
 				FrequencyPicker.SelectedItem == null ||
 				TypePicker.SelectedItem == null)
 			{
-				//Show an alert to user about invalid input
+				//Show an alert to user about invalid input (Random)
 				DisplayAlert("Error", "Please provide valid inputs for all fields.", "OK");
 				return;
 			}
