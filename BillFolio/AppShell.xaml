@@ -45,12 +45,17 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
-    <ShellContent
+	<ShellContent
         Title="Two Week View"
-        ContentTemplate="{DataTemplate local:TwoWeekView}">
-        Route="TwoWeekView" />
+        ContentTemplate="{DataTemplate local:TwoWeekView}"
+        Route="TwoWeekView" >
     </ShellContent>
-    
+
+	<ShellContent
+		Title="Payment Info"
+		ContentTemplate="{DataTemplate local:PaymentInfoPage}"
+		Route="PaymentInfoPage">
+	</ShellContent>
 
 
 
