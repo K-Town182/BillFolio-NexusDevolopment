@@ -4,12 +4,12 @@
              x:Class="BillFolio.TwoWeekView"
              Title="Two-Week View">
 
-    <VerticalStackLayout Padding="10" Spacing="10">
+    <VerticalStackLayout Padding="10" Spacing="0">
 
         <Grid x:Name="calendarGrid" 
               RowDefinitions="Auto,Auto" 
               ColumnDefinitions="*,*,*,*,*,*,*"
-              Margin="0,0,0,10">
+              Margin="20,10,20,10">
 
         </Grid>
 
@@ -17,7 +17,7 @@
                              Spacing="5" 
                              Padding="10"
                              BackgroundColor="White"
-                             Margin="0,10,0,0">
+                             Margin="20,10,0,0">
 
         </VerticalStackLayout>
     </VerticalStackLayout>

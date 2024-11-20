@@ -41,22 +41,23 @@
     </Shell.ItemTemplate>
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
-	<ShellContent
-        Title="Two Week View"
+        Title="Home - Two Week View"
         ContentTemplate="{DataTemplate local:TwoWeekView}"
         Route="TwoWeekView" >
     </ShellContent>
 
+    <ShellContent
+        Title="Add/Edit Bill"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <!--
 	<ShellContent
 		Title="Payment Info"
 		ContentTemplate="{DataTemplate local:PaymentInfoPage}"
 		Route="PaymentInfoPage">
 	</ShellContent>
-
+    -->
 
 
 
