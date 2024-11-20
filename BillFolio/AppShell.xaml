@@ -51,13 +51,13 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
-    <!--
+    
 	<ShellContent
 		Title="Payment Info"
 		ContentTemplate="{DataTemplate local:PaymentInfoPage}"
 		Route="PaymentInfoPage">
 	</ShellContent>
-    -->
+    
 
 
 

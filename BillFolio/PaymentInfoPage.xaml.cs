@@ -8,17 +8,23 @@ using Microsoft.Maui.Controls.Xaml;
 
 namespace BillFolio
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+
 	public partial class PaymentInfoPage : ContentPage
 	{
-		/*
+		
 		public PaymentInfoPage ()
 		{
 			InitializeComponent ();
+			
 
 		}
-		*/
+	
 
 		
 	}
 }
+/* Will be adding user settings here
+ * with notifications
+ * and light/darkmode
+ * maybe also analytics
+ */
