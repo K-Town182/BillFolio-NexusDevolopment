@@ -9,15 +9,26 @@
 
 	<VerticalStackLayout Padding="20" Spacing="15">
 
-			<Label Text="Enter Your Pay Dates" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+			<Label Text="Enter Your Last Pay Date" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
-			<Label Text="Start Date" FontSize="18" />
-			<DatePicker x:Name="StartDatePicker" />
+			<Label Text="Last Pay Date" FontSize="18" />
+			<DatePicker x:Name="LastPayDatePicker" />
 
-			<Label Text="End Date" FontSize="18" />
-			<DatePicker x:Name="EndDatePicker" />
+			<Label Text="Select Pay Frequency" FontSize="18" />
+			<Picker x:Name="PayFrequencyPicker" FontSize="18">
+			<Picker.Items>
+				<x:String>Weekly</x:String>
+				<x:String>Biweekly</x:String>
+				<x:String>Monthly</x:String>
+			</Picker.Items>
+			</Picker>
 
-			
-		</VerticalStackLayout>
+		<Button Text="Calculate Pay Period" Clicked="OnCalculatePayPeriodClicked"/>
+
+		<Label x:Name="PayPeriodLabel" Text="Pay Period:" FontSize="18" Padding="10"/>
+		<Label x:Name="NextPayDateLabel" Text="Next Pay Date:" FontSize="18" Padding="10"/>
+		
+
+	</VerticalStackLayout>
 	
 </ContentPage>
