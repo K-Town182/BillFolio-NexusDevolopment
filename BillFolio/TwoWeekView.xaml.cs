@@ -47,7 +47,7 @@ namespace BillFolio
                     Content = dayLabel,
                     Stroke = Colors.Gray,
                     StrokeThickness = 1,
-                    BackgroundColor = Colors.LightGray,
+                    BackgroundColor = (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) ? Colors.White : Colors.LightGray,
                     Padding = new Thickness(2),
                     HorizontalOptions = LayoutOptions.Fill,
                     VerticalOptions = LayoutOptions.Fill
@@ -68,7 +68,7 @@ namespace BillFolio
 
                 Label checkBoxLabel = new Label
                 {
-                    Text = date.ToString("MMM dd"),
+                    Text = date.ToString("MMM dd") + " - " + date.DayOfWeek.ToString(),
                     VerticalTextAlignment = TextAlignment.Center
                 };
 
@@ -90,6 +90,7 @@ namespace BillFolio
             if (dateBorders.ContainsKey(date))
             {
                 dateBorders[date].BackgroundColor = e.Value ? Colors.LightGreen : Colors.LightGray;
+
             }
 
 
