@@ -2,26 +2,33 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BillFolio.PaymentInfoPage"
-             Title="Payment Info"
-             BackgroundColor="White">
+             Title="Payment Info">
 
-	<ScrollView>
-		<VerticalStackLayout Padding="20" Spacing="15">
 
-			<Label Text="Enter Your Pay Dates" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
-			<Label Text="Start Date" FontSize="18" />
-			<DatePicker x:Name="StartDatePicker" />
 
-			<Label Text="End Date" FontSize="18" />
-			<DatePicker x:Name="EndDatePicker" />
+	<VerticalStackLayout Padding="20" Spacing="15">
 
-			<Label Text="Pay Amount" FontSize="18" />
-			<Entry x:Name="PayAmountEntry" Placeholder="Enter Amount" Keyboard="Numeric" />
+			<Label Text="Enter Your Last Pay Date" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
-			<Button Text="Save Pay Information" Clicked="OnSavePaymentClicked" Margin="0,20,0,0" 
-                    BackgroundColor="LightBlue" TextColor="White" CornerRadius="10" />
-		</VerticalStackLayout>
-	</ScrollView>
+			<Label Text="Last Pay Date" FontSize="18" />
+			<DatePicker x:Name="LastPayDatePicker" />
+
+			<Label Text="Select Pay Frequency" FontSize="18" />
+			<Picker x:Name="PayFrequencyPicker" FontSize="18">
+			<Picker.Items>
+				<x:String>Weekly</x:String>
+				<x:String>Biweekly</x:String>
+				<x:String>Monthly</x:String>
+			</Picker.Items>
+			</Picker>
+
+		<Button Text="Calculate Pay Period" Clicked="OnCalculatePayPeriodClicked"/>
+
+		<Label x:Name="PayPeriodLabel" Text="Pay Period:" FontSize="18" Padding="10"/>
+		<Label x:Name="NextPayDateLabel" Text="Next Pay Date:" FontSize="18" Padding="10"/>
+		
+
+	</VerticalStackLayout>
+	
 </ContentPage>
-<!-- This page will not display due to the xaml.cs file i think. we need to fix that before it will work. - Kaytee T. -->
