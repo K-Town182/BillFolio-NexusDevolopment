@@ -42,12 +42,26 @@ namespace BillFolio
                     VerticalTextAlignment = TextAlignment.Center
                 };
 
+                Color backgroundColor;
+                if (date == today)
+                {
+                    backgroundColor = Colors.LightBlue;
+                }
+                else if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    backgroundColor = Colors.White;
+                }
+                else
+                {
+                    backgroundColor = Colors.LightGray;
+                }
+
                 Border border = new Border
                 {
                     Content = dayLabel,
                     Stroke = Colors.Gray,
                     StrokeThickness = 1,
-                    BackgroundColor = (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) ? Colors.White : Colors.LightGray,
+                    BackgroundColor = backgroundColor,//Comment out for science//(date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) ? Colors.White : Colors.LightGray,
                     Padding = new Thickness(2),
                     HorizontalOptions = LayoutOptions.Fill,
                     VerticalOptions = LayoutOptions.Fill
