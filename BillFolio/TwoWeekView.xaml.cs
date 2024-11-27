@@ -1,136 +1,135 @@
+using BillFolio.ViewModel;
 using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
-using BillFolio.Models;
-using BillFolio.ViewModel;
+using System.Linq;
 
 namespace BillFolio
 {
-    public partial class TwoWeekView : ContentPage
-    {
-        private Dictionary<DateTime, Border> dateBorders = new Dictionary<DateTime, Border>();
+	public partial class TwoWeekView : ContentPage
+	{
+		private Dictionary<DateTime, Border> dateBorders = new Dictionary<DateTime, Border>();
 
-        public TwoWeekView()
-        {
-            InitializeComponent();
-            PopulateCalendar();
-        }
+		public TwoWeekView()
+		{
+			InitializeComponent();
+			BindingContext = ViewModelLocator.SharedViewModel;
+			var viewModel = BindingContext as SharedViewModel;
+			if (viewModel != null)
+			{
+				viewModel.PropertyChanged += ViewModel_PropertyChanged;
+			}
+			PopulateCalendar();
+		}
 
-        private void PopulateCalendar()
-        {
-            calendarGrid.Children.Clear();
-            checklistLayout.Children.Clear();
-            dateBorders.Clear();
+		private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == nameof(SharedViewModel.LastPayDate))
+			{
+				PopulateCalendar();
+			}
+		}
 
-            DateTime today = DateTime.Today;
-            int daysUntilSunday = (int)today.DayOfWeek;
-            DateTime startDate = today.AddDays(-daysUntilSunday);
+		private void PopulateCalendar()
+		{
+			var viewModel = BindingContext as SharedViewModel;
+			if (viewModel == null) return;
 
-            for (int i = 0; i < 14; i++)
-            {
-                DateTime date = startDate.AddDays(i);
+			calendarGrid.Children.Clear();
+			checklistLayout.Children.Clear();
+			dateBorders.Clear();
 
-                Label dayLabel = new Label
-                {
-                    Text = date.ToString("MMM dd"),
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center,
-                    TextColor = Colors.Black,
-                    FontSize = 14,
-                    Padding = new Thickness(5),
-                    HorizontalTextAlignment = TextAlignment.Center,
-                    VerticalTextAlignment = TextAlignment.Center
-                };
+			DateTime startDate = viewModel.LastPayDate;
 
-                Color backgroundColor;
-                if (date == today)
-                {
-                    backgroundColor = Colors.LightBlue;
-                }
-                else if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    backgroundColor = Colors.White;
-                }
-                else
-                {
-                    backgroundColor = Colors.LightGray;
-                }
+			for (int i = 0; i < 14; i++)
+			{
+				DateTime date = startDate.AddDays(i);
 
-                Border border = new Border
-                {
-                    Content = dayLabel,
-                    Stroke = Colors.Gray,
-                    StrokeThickness = 1,
-                    BackgroundColor = backgroundColor,//Comment out for science//(date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) ? Colors.White : Colors.LightGray,
-                    Padding = new Thickness(2),
-                    HorizontalOptions = LayoutOptions.Fill,
-                    VerticalOptions = LayoutOptions.Fill
-                };
+				Label dayLabel = new Label
+				{
+					Text = date.ToString("MMM dd"),
+					HorizontalOptions = LayoutOptions.Center,
+					VerticalOptions = LayoutOptions.Center,
+					TextColor = Colors.Black,
+					FontSize = 14,
+					Padding = new Thickness(5),
+					HorizontalTextAlignment = TextAlignment.Center,
+					VerticalTextAlignment = TextAlignment.Center
+				};
 
-                int row = i / 7;
-                int column = i % 7;
+				Color backgroundColor;
+				if (date == DateTime.Today)
+				{
+					backgroundColor = Colors.LightBlue;
+				}
+				else if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+				{
+					backgroundColor = Colors.White;
+				}
+				else
+				{
+					backgroundColor = Colors.LightGray;
+				}
 
-                Grid.SetRow(border, row);
-                Grid.SetColumn(border, column);
-                calendarGrid.Children.Add(border);
-                dateBorders[date] = border;
+				Border border = new Border
+				{
+					Content = dayLabel,
+					Stroke = Colors.Gray,
+					StrokeThickness = 1,
+					BackgroundColor = backgroundColor,
+					Padding = new Thickness(2),
+					HorizontalOptions = LayoutOptions.Fill,
+					VerticalOptions = LayoutOptions.Fill
+				};
 
-                CheckBox checkBox = new CheckBox
-                {
-                    HorizontalOptions = LayoutOptions.Start
-                };
+				int row = i / 7;
+				int column = i % 7;
 
-                Label checkBoxLabel = new Label
-                {
-                    Text = date.ToString("MMM dd") + " - " + date.DayOfWeek.ToString(),
-                    VerticalTextAlignment = TextAlignment.Center
-                };
+				Grid.SetRow(border, row);
+				Grid.SetColumn(border, column);
+				calendarGrid.Children.Add(border);
+				dateBorders[date] = border;
 
-                StackLayout checklistItem = new StackLayout
-                {
-                    Orientation = StackOrientation.Horizontal,
-                    Children = { checkBox, checkBoxLabel }
-                };
+				CheckBox checkBox = new CheckBox
+				{
+					HorizontalOptions = LayoutOptions.Start
+				};
 
-                checkBox.CheckedChanged += (s, e) => OnChecklistItemCheckedChanged(s, e, date);
+				Label checkBoxLabel = new Label
+				{
+					Text = date.ToString("MMM dd") + " - " + date.DayOfWeek.ToString(),
+					VerticalTextAlignment = TextAlignment.Center
+				};
 
-                checklistLayout.Children.Add(checklistItem);
-            }
-        }
+				StackLayout checklistItem = new StackLayout
+				{
+					Orientation = StackOrientation.Horizontal,
+					Children = { checkBox, checkBoxLabel }
+				};
 
-        private void OnChecklistItemCheckedChanged(object sender, CheckedChangedEventArgs e, DateTime date)
-        {
-            //Comment out lines 90-93, and un-comment out lines 96-118 to try to work on/with other code.
-            if (dateBorders.ContainsKey(date))
-            {
-                dateBorders[date].BackgroundColor = e.Value ? Colors.LightGreen : Colors.LightGray;
+				checkBox.CheckedChanged += (s, e) => OnChecklistItemCheckedChanged(s, e, date);
 
-            }
+				checklistLayout.Children.Add(checklistItem);
+			}
+		}
 
+		private void OnChecklistItemCheckedChanged(object sender, CheckedChangedEventArgs e, DateTime date)
+		{
+			var viewModel = BindingContext as SharedViewModel;
+			if (viewModel == null) return;
 
-            /*
-            // Assuming `Bills` is a collection of Bill objects in your class  
-            var billsForDate = Bills.Where(Bill => Bill.DueDate.Date == date.Date).ToList();  // Find bills that are due on the selected date
-
-            if (billsForDate.Any())  // Check if there are any bills for the given date
-            {
-                // If there are bills for the selected date, change the background color based on the checkbox value (checked/unchecked)
-                if (dateBorders.ContainsKey(date))  // Ensure that the date exists in the dictionary of borders
-                {
-                    // If the checkbox is checked, use LightGreen (indicating the date has bills that need attention)
-                    // If unchecked, use LightGray (indicating the date doesn't have bills or user unchecks)
-                    dateBorders[date].BackgroundColor = e.Value ? Colors.LightGreen : Colors.LightGray;
-                }
-            }
-            else
-            {
-                // If no bills are due on the selected date, set the background color to neutral Gray
-                if (dateBorders.ContainsKey(date))
-                {
-                    dateBorders[date].BackgroundColor = Colors.Gray;  // No bills on this date, neutral color
-                }
-            }
-            */
-        }
-    }
+			if (dateBorders.ContainsKey(date))
+			{
+				var billsForDate = viewModel.Bills.Where(bill => bill.DueDate.Date == date.Date).ToList();
+				if (billsForDate.Any())
+				{
+					dateBorders[date].BackgroundColor = e.Value ? Colors.LightGreen : Colors.LightGray;
+				}
+				else
+				{
+					dateBorders[date].BackgroundColor = Colors.Gray;
+				}
+			}
+		}
+	}
 }
