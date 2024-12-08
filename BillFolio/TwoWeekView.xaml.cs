@@ -32,6 +32,7 @@ namespace BillFolio
 
 		private void PopulateCalendar()
 		{
+			
 			var viewModel = BindingContext as SharedViewModel;
 			if (viewModel == null) return;
 
