@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+             x:Class="BillFolio.HelpSupportPage"
+             Title="HelpSupportPage">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label 
+                Text="Thank You for using BillFolio!" FontSize="Header"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                BackgroundColor="Aquamarine"
+                Margin="0,30,0,0 "/>
+
+            <Label
+                Text="FAQ" FontSize="Large" TextDecorations="Underline"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Start"
+                Margin="20,10,0,10" />
+
+            <!-- FAQ Section -->
+            
+            <!-- 
+            Template for FAQ Entry: (Copy paste the next two lines and replace text and brackets (ie. [BRACKETS] )
+            <Label Text="Q: [ADD QUESTION HERE]" FontSize="Medium" Margin="20,0,0,0" TextDecorations="Underline" />
+            <Label Text="A: [ADD ANSWER HERE]" FontSize="Small" Margin="40,0,0,10" />
+
+            -->
+            <Label Text="Q: How do I add a new bill?" FontSize="Medium" Margin="20,0,0,0" TextDecorations="Underline" />
+            <Label Text="A: To add a new bill, click on the 'Add/Edit Bill' tab in the main menu. Then, click on the 'Add New Bill' button." FontSize="Small" Margin="40,0,0,10" />
+
+        </VerticalStackLayout>
+    </ScrollView>    
+</ContentPage>

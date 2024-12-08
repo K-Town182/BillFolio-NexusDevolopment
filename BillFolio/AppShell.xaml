@@ -57,7 +57,11 @@
 		ContentTemplate="{DataTemplate local:PaymentInfoPage}"
 		Route="PaymentInfoPage">
 	</ShellContent>
-    
+
+    <ShellContent
+        Title="Help/Support"
+        ContentTemplate="{DataTemplate local:HelpSupportPage} "
+        Route="HelpSupportPage" />
 
 
 
