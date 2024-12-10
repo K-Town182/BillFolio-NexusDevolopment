@@ -4,27 +4,40 @@
              x:Class="BillFolio.TwoWeekView"
              Title="Two-Week View">
 
-    <VerticalStackLayout Padding="10" Spacing="0">
+	<VerticalStackLayout Padding="10" Spacing="0">
 
-        <Grid x:Name="calendarGrid" 
+		 
+		<Grid x:Name="calendarGrid" 
               RowDefinitions="Auto,Auto" 
               ColumnDefinitions="*,*,*,*,*,*,*"
               Margin="20,10,20,10">
+		</Grid>
+		
+		
 
-        </Grid>
 
-        <VerticalStackLayout>
-            <!-- Note Section -->
-            <Label Text="Notes: " FontSize="Medium" Margin="20,0,0,0"/>
-            <Editor x:Name="notesEditor" Placeholder="Enter your notes here..." Margin="20,10,10,0" HeightRequest="100"/>
-            
-        </VerticalStackLayout>
-        <VerticalStackLayout x:Name="checklistLayout" 
-                             Spacing="5" 
-                             Padding="10"
-                             BackgroundColor="White"
-                             Margin="20,10,0,0">
+		<HorizontalStackLayout Spacing="10" Padding="10">
+			<!-- Checklist Section -->
+			<!-- Label above the HorizontalStackLayout -->
+			<Label Text="Bills due this pay period" FontSize="Small" Margin="20,10,0,0"/>
+			<VerticalStackLayout x:Name="checklistLayout" 
+                         Spacing="5" 
+                         Padding="10"
+                         BackgroundColor="White"
+                         Margin="20,10,0,0">
+				<!-- Checklist items will be added here dynamically -->
+			</VerticalStackLayout>
 
-        </VerticalStackLayout>
-    </VerticalStackLayout>
+			<!-- Note Section -->
+			<VerticalStackLayout>
+				<Label Text="Notes: " FontSize="Medium" Margin="20,0,0,0"/>
+				<Editor x:Name="notesEditor" 
+                        Placeholder="Enter your notes here..." 
+                        Margin="20,10,10,0" 
+                        HeightRequest="300" 
+                        VerticalOptions="FillAndExpand" 
+                        HorizontalOptions="FillAndExpand"/>
+			</VerticalStackLayout>
+		</HorizontalStackLayout>
+	</VerticalStackLayout>
 </ContentPage>

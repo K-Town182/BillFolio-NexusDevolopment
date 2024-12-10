@@ -128,7 +128,7 @@ namespace BillFolio
 				}
 				else
 				{
-					dateBorders[date].BackgroundColor = Colors.Gray;
+					dateBorders[date].BackgroundColor = Colors.LightGreen;
 				}
 			}
 		}
