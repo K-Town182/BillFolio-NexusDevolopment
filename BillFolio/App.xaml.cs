@@ -5,15 +5,15 @@
 		public App()
 		{
 			InitializeComponent();
-
+			DatabaseHelper.InitializeAsync();
 			MainPage = new AppShell();
 		}
 
         protected override void OnStart()
         {
             base.OnStart();
-
-			DatabaseHelper.Initialize();
+			
+			DatabaseHelper.InitializeAsync();
         }
     }
 }

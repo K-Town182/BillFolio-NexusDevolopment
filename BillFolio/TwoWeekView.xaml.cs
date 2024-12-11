@@ -19,9 +19,28 @@ namespace BillFolio
 			{
 				viewModel.PropertyChanged += ViewModel_PropertyChanged;
 			}
+			
+		}
+
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+			await LoadBillsAsync();
 			PopulateCalendar();
 		}
 
+		private async Task LoadBillsAsync()
+		{
+			var viewModel = BindingContext as SharedViewModel;
+			if (viewModel == null) return;
+
+			var bills = await Task.Run(() => DatabaseHelper.GetAllBillsAsync());
+			viewModel.Bills.Clear();
+			foreach (var bill in bills)
+			{
+				viewModel.Bills.Add(bill);
+			}
+		}
 		private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == nameof(SharedViewModel.LastPayDate))

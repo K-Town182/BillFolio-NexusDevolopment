@@ -14,7 +14,7 @@ namespace BillFolio
 			InitializeComponent();
 		}
 
-		private void OnAddBillClicked(object sender, EventArgs e)
+		private async void OnAddBillClicked(object sender, EventArgs e)
 		{
 			// Validate input
 			if (string.IsNullOrWhiteSpace(BillNameEntry.Text) ||
@@ -39,6 +39,9 @@ namespace BillFolio
 
 			};
 
+			// Save the bill to the database
+			await DatabaseHelper.SaveBillAsync(bill);
+
 			// Get the ViewModel from the BindingContext and add the bill
 			var viewModel = (MainPageViewModel)BindingContext;
 			viewModel.AddBill(bill);
@@ -52,7 +55,7 @@ namespace BillFolio
 
 		}
 
-		private void OnEditBillClicked(object sender, EventArgs e)
+		private async void OnEditBillClicked(object sender, EventArgs e)
 		{
 			if (sender is Button button && button.CommandParameter is Bill bill)
 			{
@@ -66,6 +69,9 @@ namespace BillFolio
 				// remove bill option in edit screen
 				var viewModel = (MainPageViewModel)BindingContext;
 				viewModel.DeleteBill(bill); //remove from list until saved
+
+				// Save the edited bill to the database
+				await DatabaseHelper.SaveBillAsync(bill);
 			}
 		}
 		private void OnDeleteBillClicked(object sender, EventArgs e)
@@ -84,14 +90,14 @@ namespace BillFolio
 			FrequencyPicker.SelectedItem = null;
 			TypePicker.SelectedItem = null;
 		}
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            var bills = DatabaseHelper.GetAllBills();
-            ((MainPageViewModel)BindingContext).Bills = new ObservableCollection<Bill>(bills);
-        }
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+			var bills = await DatabaseHelper.GetAllBillsAsync();
+			((MainPageViewModel)BindingContext).Bills = new ObservableCollection<Bill>(bills);
+		}
 
-    }
+	}
 }
 		
 		

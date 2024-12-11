@@ -17,7 +17,7 @@ namespace BillFolio
 				});
 
             // Initialize the database
-            DatabaseHelper.Initialize();
+            DatabaseHelper.InitializeAsync();
 
             return builder.Build();
 		}

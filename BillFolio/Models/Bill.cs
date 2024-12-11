@@ -19,6 +19,7 @@ namespace BillFolio.Models
 	// Class to represent a bill
 	public class Bill
 	{
+		public int Id { get; set; }
 		public string Name { get; set; }          // Name of the bill
 		public decimal Amount { get; set; }       // Amount due for the bill
 		public DateTime DueDate { get; set; }     // Due date of the bill
