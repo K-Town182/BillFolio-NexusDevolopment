@@ -4,12 +4,27 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using BillFolio.Models;
+using BillFolio.ViewModel;
 
 namespace BillFolio.ViewModels
 {
 	public class MainPageViewModel : INotifyPropertyChanged
 	{
-		public ObservableCollection<Bill> Bills { get; set; } = new ObservableCollection<Bill>();
+		private SharedViewModel sharedViewModel;
+
+		public ObservableCollection<Bill> Bills
+
+{
+			get => sharedViewModel.Bills;
+			set
+			{
+				sharedViewModel.Bills = value;
+				OnPropertyChanged(nameof(Bills));
+			}
+		}
+
+
+
 		// Properties for enum Values
 		public ObservableCollection<BillFrequency> Frequencies { get; set; } //Add Frequencies property
 		public ObservableCollection<BillType> Types { get; set; } //Add Type property
@@ -50,7 +65,8 @@ namespace BillFolio.ViewModels
 
 		public MainPageViewModel()
 		{
-			
+			sharedViewModel = ViewModelLocator.SharedViewModel;
+
 			Frequencies = new ObservableCollection<BillFrequency>((BillFrequency[])Enum.GetValues(typeof(BillFrequency)));
 			Types = new ObservableCollection<BillType>((BillType[])Enum.GetValues(typeof(BillType)));
 

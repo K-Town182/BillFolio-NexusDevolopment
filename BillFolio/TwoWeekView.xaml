@@ -25,16 +25,22 @@
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
-			<!-- Checklist Section -->
-			<VerticalStackLayout x:Name="checklistLayout" 
-                         Grid.Row="1" 
-                         Grid.Column="0" 
-                         Spacing="5" 
-                         Padding="10"
-                         BackgroundColor="White"
-                         Margin="20,10,0,0">
-				<!-- Checklist items will be added here dynamically -->
-			</VerticalStackLayout>
+		<!-- Checklist Section -->
+		<CollectionView x:Name="checklistCollectionView" 
+                 Grid.Row="1" 
+                 Grid.Column="0" 
+                 ItemsSource="{Binding Bills}"
+                 BackgroundColor="White"
+                 Margin="20,10,0,0">
+				<CollectionView.ItemTemplate>
+					<DataTemplate>
+						<StackLayout Orientation="Horizontal" Spacing="5" Padding="10">
+							<CheckBox IsChecked="{Binding IsPaid}" />
+							<Label Text="{Binding Name}" VerticalTextAlignment="Center" />
+						</StackLayout>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
 
 			<!-- Note Section -->
 			<VerticalStackLayout Grid.Row="1" Grid.Column="1">

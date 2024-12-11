@@ -32,12 +32,11 @@ namespace BillFolio
 
 		private void PopulateCalendar()
 		{
-			
+
 			var viewModel = BindingContext as SharedViewModel;
 			if (viewModel == null) return;
 
 			calendarGrid.Children.Clear();
-			checklistLayout.Children.Clear();
 			dateBorders.Clear();
 
 			DateTime startDate = viewModel.LastPayDate;
@@ -91,26 +90,6 @@ namespace BillFolio
 				calendarGrid.Children.Add(border);
 				dateBorders[date] = border;
 
-				CheckBox checkBox = new CheckBox
-				{
-					HorizontalOptions = LayoutOptions.Start
-				};
-
-				Label checkBoxLabel = new Label
-				{
-					Text = date.ToString("MMM dd") + " - " + date.DayOfWeek.ToString(),
-					VerticalTextAlignment = TextAlignment.Center
-				};
-
-				StackLayout checklistItem = new StackLayout
-				{
-					Orientation = StackOrientation.Horizontal,
-					Children = { checkBox, checkBoxLabel }
-				};
-
-				checkBox.CheckedChanged += (s, e) => OnChecklistItemCheckedChanged(s, e, date);
-
-				checklistLayout.Children.Add(checklistItem);
 			}
 		}
 
