@@ -38,16 +38,41 @@ namespace BillFolio
 				Type = (BillType)TypePicker.SelectedItem,
 			};
 
-			// Save the bill to the database
-			await DatabaseHelper.SaveBillAsync(bill);
-
-			// Get the ViewModel from the BindingContext and add the bill
+			// Get the ViewModel from the BindingContext
 			var viewModel = (MainPageViewModel)BindingContext;
-			viewModel.AddBill(bill);
+
+			if (viewModel.CurrentEditingBill != null)
+			{
+				// Update the existing bill
+				viewModel.CurrentEditingBill.Name = bill.Name;
+				viewModel.CurrentEditingBill.Amount = bill.Amount;
+				viewModel.CurrentEditingBill.DueDate = bill.DueDate;
+				viewModel.CurrentEditingBill.Frequency = bill.Frequency;
+				viewModel.CurrentEditingBill.Type = bill.Type;
+
+				// Save the edited bill to the database
+				await viewModel.EditBillAsync(viewModel.CurrentEditingBill);
+
+				// Clear the current editing bill
+				viewModel.CurrentEditingBill = null;
+			}
+			else
+			{
+				// Add the new bill
+				viewModel.AddBill(bill);
+
+				// Save the new bill to the database
+				await DatabaseHelper.SaveBillAsync(bill);
+			}
 
 			// Clear the entry fields for new input
 			ClearEntryFields();
+
+			// Refresh the bills collection to update the UI
+			await RefreshBills();
 		}
+
+
 
 		private void OnEditBillClicked(object sender, EventArgs e)
 		{
@@ -87,6 +112,12 @@ namespace BillFolio
 		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
+			var bills = await DatabaseHelper.GetAllBillsAsync();
+			((MainPageViewModel)BindingContext).Bills = new ObservableCollection<Bill>(bills);
+		}
+
+		private async Task RefreshBills()
+		{
 			var bills = await DatabaseHelper.GetAllBillsAsync();
 			((MainPageViewModel)BindingContext).Bills = new ObservableCollection<Bill>(bills);
 		}

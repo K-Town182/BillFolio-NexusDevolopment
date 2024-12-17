@@ -65,14 +65,14 @@
 							<HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Center" Padding="40" Spacing="10">
 								<Button 
                                     Text="Edit"
-BorderColor="Black"
-BackgroundColor="Yellow"
-TextColor="Black"
-Clicked="OnEditBillClicked"
-CommandParameter="{Binding .}"
-WidthRequest="80"
-HeightRequest="40"
-CornerRadius="5" />
+									BorderColor="Black"
+									BackgroundColor="Yellow"
+									TextColor="Black"
+									Clicked="OnEditBillClicked"
+									CommandParameter="{Binding .}"
+									WidthRequest="80"
+									HeightRequest="40"
+									CornerRadius="5" />
 
 								<Button 
                                     Text="Delete"

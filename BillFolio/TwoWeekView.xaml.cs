@@ -44,7 +44,7 @@ namespace BillFolio
 
 		private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == nameof(SharedViewModel.LastPayDate))
+			if (e.PropertyName == nameof(SharedViewModel.LastPayDate) || e.PropertyName == nameof(SharedViewModel.Bills))
 			{
 				PopulateCalendar();
 			}
