@@ -3,6 +3,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BillFolio
 {
@@ -19,7 +20,6 @@ namespace BillFolio
 			{
 				viewModel.PropertyChanged += ViewModel_PropertyChanged;
 			}
-			
 		}
 
 		protected override async void OnAppearing()
@@ -34,13 +34,14 @@ namespace BillFolio
 			var viewModel = BindingContext as SharedViewModel;
 			if (viewModel == null) return;
 
-			var bills = await Task.Run(() => DatabaseHelper.GetAllBillsAsync());
+			var bills = await DatabaseHelper.GetAllBillsAsync();
 			viewModel.Bills.Clear();
 			foreach (var bill in bills)
 			{
 				viewModel.Bills.Add(bill);
 			}
 		}
+
 		private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == nameof(SharedViewModel.LastPayDate))
@@ -51,7 +52,6 @@ namespace BillFolio
 
 		private void PopulateCalendar()
 		{
-
 			var viewModel = BindingContext as SharedViewModel;
 			if (viewModel == null) return;
 
@@ -108,7 +108,6 @@ namespace BillFolio
 				Grid.SetColumn(border, column);
 				calendarGrid.Children.Add(border);
 				dateBorders[date] = border;
-
 			}
 		}
 

@@ -11,8 +11,8 @@ public class DatabaseHelper
 	// Method to initialize the database connection
 	public static async Task InitializeAsync()
 	{
-		var dbPath = Path.Combine(FileSystem.AppDataDirectory, "bills.db");
-		db = new SQLiteAsyncConnection(dbPath);
+		var dbPath = Constants.DatabasePath;
+		db = new SQLiteAsyncConnection(dbPath, Constants.Flags);
 		await db.CreateTableAsync<Bill>();
 	}
 
@@ -33,10 +33,12 @@ public class DatabaseHelper
 	}
 
 	// Method to delete a bill by ID
-	public static Task<int> DeleteBillAsync(int id)
+	public static async Task<int> DeleteBillAsync(int id)
 	{
 		EnsureInitialized();
-		return db.DeleteAsync<Bill>(id);
+		var result = await db.DeleteAsync<Bill>(id);
+		Console.WriteLine($"DeleteBillAsync: Deleted bill with ID {id}, result: {result}");
+		return result;
 	}
 
 	// Method to update an existing bill
@@ -45,7 +47,8 @@ public class DatabaseHelper
 		EnsureInitialized();
 		return db.UpdateAsync(bill);
 	}
-	//mehtod to save a bill
+
+	// Method to save a bill
 	public static Task<int> SaveBillAsync(Bill bill)
 	{
 		EnsureInitialized();
@@ -65,7 +68,6 @@ public class DatabaseHelper
 		EnsureInitialized();
 		return db.Table<Bill>().ToListAsync();
 	}
-
 
 	public static Task<List<Bill>> GetBillsForTwoWeeksAsync(DateTime startDate, DateTime endDate)
 	{

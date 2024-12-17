@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace BillFolio.Models
 {
@@ -19,6 +20,7 @@ namespace BillFolio.Models
 	// Class to represent a bill
 	public class Bill
 	{
+		[PrimaryKey, AutoIncrement]
 		public int Id { get; set; }
 		public string Name { get; set; }          // Name of the bill
 		public decimal Amount { get; set; }       // Amount due for the bill

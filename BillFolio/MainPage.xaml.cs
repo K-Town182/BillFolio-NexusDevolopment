@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.Maui.Controls;
 using BillFolio.Models;
-using System.Collections.ObjectModel;
 using BillFolio.ViewModels;
-//using Javax.Security.Auth;
+using System.Collections.ObjectModel;
 
 namespace BillFolio
 {
@@ -12,6 +11,7 @@ namespace BillFolio
 		public MainPage()
 		{
 			InitializeComponent();
+			BindingContext = new MainPageViewModel();
 		}
 
 		private async void OnAddBillClicked(object sender, EventArgs e)
@@ -23,8 +23,8 @@ namespace BillFolio
 				FrequencyPicker.SelectedItem == null ||
 				TypePicker.SelectedItem == null)
 			{
-				//Show an alert to user about invalid input (Random message)
-				DisplayAlert("Error", "Please provide valid inputs for all fields.", "OK");
+				// Show an alert to user about invalid input
+				await DisplayAlert("Error", "Please provide valid inputs for all fields.", "OK");
 				return;
 			}
 
@@ -34,9 +34,8 @@ namespace BillFolio
 				Name = BillNameEntry.Text,
 				Amount = decimal.Parse(BillAmountEntry.Text),
 				DueDate = DateTime.Parse(DueDateEntry.Text),
-				Frequency = (BillFrequency)FrequencyPicker.SelectedItem, //Get selected frequency
-				Type = (BillType)TypePicker.SelectedItem, // Get selected type
-
+				Frequency = (BillFrequency)FrequencyPicker.SelectedItem,
+				Type = (BillType)TypePicker.SelectedItem,
 			};
 
 			// Save the bill to the database
@@ -47,41 +46,35 @@ namespace BillFolio
 			viewModel.AddBill(bill);
 
 			// Clear the entry fields for new input
-			BillNameEntry.Text = string.Empty;
-			BillAmountEntry.Text = string.Empty;
-			DueDateEntry.Text = string.Empty;
-			FrequencyPicker.SelectedItem = null;
-			TypePicker.SelectedItem = null;
-
+			ClearEntryFields();
 		}
 
-		private async void OnEditBillClicked(object sender, EventArgs e)
+		private void OnEditBillClicked(object sender, EventArgs e)
 		{
 			if (sender is Button button && button.CommandParameter is Bill bill)
 			{
-				// populate entry fields with the selected bill details for editing
+				// Populate entry fields with the selected bill details for editing
 				BillNameEntry.Text = bill.Name;
 				BillAmountEntry.Text = bill.Amount.ToString();
 				DueDateEntry.Text = bill.DueDate.ToString("MM/dd/yyyy");
 				FrequencyPicker.SelectedItem = bill.Frequency;
 				TypePicker.SelectedItem = bill.Type;
 
-				// remove bill option in edit screen
+				// Store the bill being edited in a temporary variable
 				var viewModel = (MainPageViewModel)BindingContext;
-				viewModel.DeleteBill(bill); //remove from list until saved
-
-				// Save the edited bill to the database
-				await DatabaseHelper.SaveBillAsync(bill);
+				viewModel.CurrentEditingBill = bill;
 			}
 		}
-		private void OnDeleteBillClicked(object sender, EventArgs e)
+
+		private async void OnDeleteBillClicked(object sender, EventArgs e)
 		{
 			if (sender is Button button && button.CommandParameter is Bill bill)
 			{
 				var viewModel = (MainPageViewModel)BindingContext;
-				viewModel.DeleteBill(bill); //Calls the DeleteBill method in ViewModel
+				await viewModel.DeleteBillAsync(bill); // Calls the DeleteBillAsync method in ViewModel
 			}
 		}
+
 		private void ClearEntryFields()
 		{
 			BillNameEntry.Text = string.Empty;
@@ -90,14 +83,12 @@ namespace BillFolio
 			FrequencyPicker.SelectedItem = null;
 			TypePicker.SelectedItem = null;
 		}
+
 		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
 			var bills = await DatabaseHelper.GetAllBillsAsync();
 			((MainPageViewModel)BindingContext).Bills = new ObservableCollection<Bill>(bills);
 		}
-
 	}
 }
-		
-		
