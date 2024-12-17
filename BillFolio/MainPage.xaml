@@ -38,6 +38,8 @@
 			</Picker>
 
 			<Button Text="Add Bill" Clicked="OnAddBillClicked" />
+            
+            <Button Text="Show Notification" Clicked="OnShowNotificationButtonClicked" />
 
 			<Label Text="Your Bills:" FontSize="24" />
 			<CollectionView ItemsSource="{Binding Bills}">

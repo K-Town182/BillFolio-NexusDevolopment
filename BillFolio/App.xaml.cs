@@ -5,7 +5,7 @@
 		public App()
 		{
 			InitializeComponent();
-			DatabaseHelper.InitializeAsync();
+			InitializeDatabaseAsync();
 			MainPage = new AppShell();
 		}
 
@@ -13,7 +13,12 @@
         {
             base.OnStart();
 			
-			DatabaseHelper.InitializeAsync();
+			InitializeDatabaseAsync();
         }
+
+		private async void InitializeDatabaseAsync()
+		{
+			await DatabaseHelper.InitializeAsync();
+		}
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Maui.Controls;
 using BillFolio.Models;
 using BillFolio.ViewModels;
 using System.Collections.ObjectModel;
+using Plugin.LocalNotification;
 
 namespace BillFolio
 {
@@ -12,6 +13,23 @@ namespace BillFolio
 		{
 			InitializeComponent();
 			BindingContext = new MainPageViewModel();
+		}
+
+		private void OnShowNotificationButtonClicked(object sender, EventArgs e)
+		{
+			var notification = new NotificationRequest
+			{
+				NotificationId = 1000,
+				Title = "Test Notification",
+				Description = "This is a test notification",
+				ReturningData = "Dummy data",
+				Schedule = new NotificationRequestSchedule
+				{
+					NotifyTime = DateTime.Now.AddSeconds(5)
+				}
+			};
+
+			LocalNotificationCenter.Current.Show(notification);
 		}
 
 		private async void OnAddBillClicked(object sender, EventArgs e)
@@ -70,7 +88,22 @@ namespace BillFolio
 
 			// Refresh the bills collection to update the UI
 			await RefreshBills();
-		}
+
+			// Show notification
+			var notification = new NotificationRequest
+			{
+				NotificationId = 1001,
+				Title = "Bill Added",
+				Description = "A new bill has been added Successfully.",
+				ReturningData = "Bill data",
+				Schedule = new NotificationRequestSchedule
+				{
+					NotifyTime = DateTime.Now.AddSeconds(5)
+				}
+			};
+
+            LocalNotificationCenter.Current.Show(notification);
+        }
 
 
 

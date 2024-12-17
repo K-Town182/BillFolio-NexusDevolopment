@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 
 namespace BillFolio
 {
@@ -17,7 +18,7 @@ namespace BillFolio
 				});
 
             // Initialize the database
-            DatabaseHelper.InitializeAsync();
+            // DatabaseHelper.InitializeAsync();
 
             return builder.Build();
 		}
