@@ -53,7 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="index.html">
+		<Content Include="wwwroot\index.html">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
