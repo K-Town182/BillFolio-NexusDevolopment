@@ -52,7 +52,11 @@
 	  <Compile Remove="HelpSupport.cs" />
 	</ItemGroup>
 
-	
+	<ItemGroup>
+		<Content Include="index.html">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
