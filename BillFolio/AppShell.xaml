@@ -6,9 +6,6 @@
     xmlns:local="clr-namespace:BillFolio"
     Shell.FlyoutBehavior="Flyout">
 
-    <!-- "how to comment in xaml. - Johnathon" -->
-    <!--  "https://www.youtube.com/watch?v=qs1otgknDHA" referenced video for some of these flyout menu items  -->
-
     <Shell.FlyoutHeader>
         <Label Text="BillFolio: Menu"
                FontAttributes="Bold"
@@ -17,25 +14,20 @@
                HorizontalTextAlignment="Center"
                BackgroundColor="Aquamarine"/>
     </Shell.FlyoutHeader>
-   
 
     <Shell.FlyoutFooter>
         <Label Text="Copyright | Nexus Development"
                HorizontalTextAlignment="Center"
                Padding="0, 10"
                BackgroundColor="LightPink"/>
-
     </Shell.FlyoutFooter>
-    
+
     <Shell.ItemTemplate>
         <DataTemplate>
-            <HorizontalStackLayout Spacing ="20" Padding="15">
-                <Label Text ="{Binding Title}"
+            <HorizontalStackLayout Spacing="20" Padding="15">
+                <Label Text="{Binding Title}"
                        VerticalTextAlignment="Center"
                        FontAttributes="Bold"/>
-                
-
-
             </HorizontalStackLayout>
         </DataTemplate>
     </Shell.ItemTemplate>
@@ -43,7 +35,7 @@
     <ShellContent
         Title="Home - Two Week View"
         ContentTemplate="{DataTemplate local:TwoWeekView}"
-        Route="TwoWeekView" >
+        Route="TwoWeekView">
     </ShellContent>
 
     <ShellContent
@@ -51,19 +43,14 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
-    
-	<ShellContent
-		Title="Payment Info"
-		ContentTemplate="{DataTemplate local:PaymentInfoPage}"
-		Route="PaymentInfoPage">
-	</ShellContent>
+    <ShellContent
+        Title="Payment Info"
+        ContentTemplate="{DataTemplate local:PaymentInfoPage}"
+        Route="PaymentInfoPage">
+    </ShellContent>
 
     <ShellContent
         Title="Help/Support"
-        ContentTemplate="{DataTemplate local:HelpSupportPage} "
+        ContentTemplate="{DataTemplate local:HelpSupportPage}"
         Route="HelpSupportPage" />
-
-
-
 </Shell>
-    
